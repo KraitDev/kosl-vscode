@@ -1,20 +1,81 @@
 {
-  "name": "kosl",
+  "name": "kosl-vscode",
   "displayName": "KOSL Support",
-  "description": "Syntax highlighting and formatting for Krait Object Serialization Language (KOSL)",
-  "version": "0.2.1",
+  "description": "Syntax highlighting, formatting, transpilation, and tooling for Krait Object Serialization Language (KOSL)",
+  "version": "0.3.0",
+  "preview": true,
   "publisher": "KraitDev",
+  "license": "MIT",
   "icon": "assets/kosl-icon.png",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KraitDev/kosl"
+  },
+
+  "homepage": "https://github.com/KraitDev/kosl",
+  "bugs": {
+    "url": "https://github.com/KraitDev/kosl/issues"
+  },
+
   "engines": {
     "vscode": "^1.80.0"
   },
-  "categories": ["Programming Languages"],
+
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Linters",
+    "Other"
+  ],
+
+  "keywords": [
+    "kosl",
+    "krait",
+    "serialization",
+    "config",
+    "configuration",
+    "language",
+    "formatter",
+    "toml",
+    "json",
+    "yaml",
+    "cargo",
+    "rust"
+  ],
+
+  "capabilities": {
+    "virtualWorkspaces": false,
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "KOSL tooling requires trusted workspace access for parsing, formatting, validation, and TOML transpilation."
+    }
+  },
+
+  "activationEvents": [
+    "onLanguage:kosl",
+    "workspaceContains:**/*.kosl",
+    "onCommand:kosl.format",
+    "onCommand:kosl.validate",
+    "onCommand:kosl.transpile"
+  ],
+
+  "main": "./out/extension.js",
+
   "contributes": {
     "languages": [
       {
         "id": "kosl",
-        "aliases": ["KOSL", "kosl"],
-        "extensions": [".kosl"],
+        "aliases": [
+          "KOSL",
+          "kosl"
+        ],
+        "extensions": [
+          ".kosl"
+        ],
+        "filenames": [
+          "Cargo.kosl"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./assets/kosl-icon.svg",
@@ -22,6 +83,7 @@
         }
       }
     ],
+
     "grammars": [
       {
         "language": "kosl",
@@ -29,12 +91,169 @@
         "path": "./syntaxes/kosl.tmLanguage.json"
       }
     ],
+
     "iconThemes": [
       {
         "id": "kosl-icons",
         "label": "KOSL Icons",
         "path": "./assets/icon-theme.json"
       }
+    ],
+
+    "commands": [
+      {
+        "command": "kosl.format",
+        "title": "KOSL: Format File",
+        "category": "KOSL",
+        "icon": "$(symbol-key)"
+      },
+      {
+        "command": "kosl.validate",
+        "title": "KOSL: Validate File",
+        "category": "KOSL",
+        "icon": "$(check)"
+      },
+      {
+        "command": "kosl.transpile",
+        "title": "KOSL: Transpile to TOML",
+        "category": "KOSL",
+        "icon": "$(arrow-swap)"
+      }
+    ],
+
+    "menus": {
+      "editor/title": [
+        {
+          "command": "kosl.format",
+          "when": "editorLangId == kosl",
+          "group": "navigation"
+        }
+      ],
+
+      "explorer/context": [
+        {
+          "command": "kosl.format",
+          "when": "resourceExtname == .kosl",
+          "group": "1_kosl@1"
+        },
+        {
+          "command": "kosl.validate",
+          "when": "resourceExtname == .kosl",
+          "group": "1_kosl@2"
+        },
+        {
+          "command": "kosl.transpile",
+          "when": "resourceFilename == Cargo.kosl",
+          "group": "1_kosl@3"
+        }
+      ],
+
+      "editor/context": [
+        {
+          "command": "kosl.format",
+          "when": "editorLangId == kosl",
+          "group": "1_kosl@1"
+        },
+        {
+          "command": "kosl.validate",
+          "when": "editorLangId == kosl",
+          "group": "1_kosl@2"
+        }
+      ],
+
+      "commandPalette": [
+        {
+          "command": "kosl.format",
+          "when": "editorLangId == kosl"
+        },
+        {
+          "command": "kosl.validate",
+          "when": "editorLangId == kosl"
+        },
+        {
+          "command": "kosl.transpile"
+        }
+      ]
+    },
+
+    "configuration": {
+      "title": "KOSL",
+
+      "properties": {
+        "kosl.format.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable KOSL formatting."
+        },
+
+        "kosl.validate.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable KOSL validation diagnostics."
+        },
+
+        "kosl.transpile.autoGenerateToml": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically generate Cargo.toml from Cargo.kosl."
+        },
+
+        "kosl.format.trailingCommas": {
+          "type": "boolean",
+          "default": true,
+          "description": "Insert trailing commas in multiline collections."
+        },
+
+        "kosl.format.indentSize": {
+          "type": "number",
+          "default": 2,
+          "minimum": 2,
+          "maximum": 8,
+          "description": "Indentation size used by the formatter."
+        },
+
+        "kosl.parser.strictMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable strict parsing rules."
+        },
+
+        "kosl.toml.outputPath": {
+          "type": "string",
+          "default": "./Cargo.toml",
+          "description": "Output path for transpiled TOML."
+        }
+      }
+    },
+
+    "snippets": [
+      {
+        "language": "kosl",
+        "path": "./snippets/kosl.json"
+      }
     ]
-  }
+  },
+
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src",
+    "format": "prettier . --write",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  },
+
+  "dependencies": {}
 }
