@@ -3,10 +3,10 @@
   "displayName": "KOSL DevTools",
   "description": "Syntax highlighting, formatting, transpilation, and tooling for Krait Object Serialization Language (KOSL)",
   "version": "0.3.0",
-  "preview": true,
+  "preview": false,
   "publisher": "KraitDev",
   "license": "MIT",
-  "icon": "assets/kosl-icon.png",
+  "icon": "assets/kosl-svg.png",
 
   "repository": {
     "type": "git",
@@ -53,11 +53,7 @@
   },
 
   "activationEvents": [
-    "onLanguage:kosl",
-    "workspaceContains:**/*.kosl",
-    "onCommand:kosl.format",
-    "onCommand:kosl.validate",
-    "onCommand:kosl.transpile"
+    "workspaceContains:**/*.kosl"
   ],
 
   "main": "./out/extension.js",
@@ -236,8 +232,6 @@
 
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
     "lint": "eslint src",
     "format": "prettier . --write",
     "test": "node ./out/test/runTest.js",
