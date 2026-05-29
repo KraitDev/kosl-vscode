@@ -1,5 +1,5 @@
 {
-  "name": "kosl-vscode",
+  "name": "kosl-devtools",
   "displayName": "KOSL DevTools",
   "description": "Syntax highlighting, formatting, transpilation, and tooling for Krait Object Serialization Language (KOSL)",
   "version": "0.3.0",
