@@ -22,18 +22,18 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        working-directory: ./vscode-extension
+        working-directory: ./
         run: npm install --no-fund --no-audit
 
       - name: Package Extension (VSIX)
-        working-directory: ./vscode-extension
-        run: npx @vscode/vsce package --out kosl-lang.vsix
+        working-directory: ./
+        run: npx @vscode/vsce package --out kosl-devtools.vsix
 
       - name: Upload VS Code Extension
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./vscode-extension/kosl-lang.vsix
-          asset_name: kosl-lang.vsix
+          file: ./kosl-devtools.vsix
+          asset_name: kosl-devtools.vsix
           tag: ${{ github.ref }}
           overwrite: true
