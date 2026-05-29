@@ -4,7 +4,7 @@
 
 **The official Visual Studio Code extension for Krait Object Serialization Language (KOSL).**
 
-<img height="300" src="demo.gif"> <img height="300" alt="src" src="https://github.com/user-attachments/assets/ae74b5f0-ef69-4648-aac8-6735047a858f" /> <img height="300" alt="scr" src="https://github.com/user-attachments/assets/8b448e7b-5922-4682-aaa6-5f6e7bf8557f" />
+<img height="250" src="demo.gif"> <img height="250" alt="src" src="https://github.com/user-attachments/assets/ae74b5f0-ef69-4648-aac8-6735047a858f" /> <img height="250" alt="scr" src="https://github.com/user-attachments/assets/8b448e7b-5922-4682-aaa6-5f6e7bf8557f" />
 
 </div>
 
