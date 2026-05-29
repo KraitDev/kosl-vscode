@@ -1,33 +1,154 @@
 {
   "name": "KOSL",
   "scopeName": "source.kosl",
+
+  "fileTypes": [
+    "kosl"
+  ],
+
   "patterns": [
     {
-      "match": "(#|//).*$",
-      "name": "comment.line.kosl"
+      "include": "#comments"
     },
     {
-      "match": "^\\s*([a-zA-Z0-9_.-]+)\\s*(?=(=))",
-      "captures": {
-        "1": { "name": "variable.other.property.kosl" }
-      }
+      "include": "#strings"
     },
     {
-      "match": "(?<=[=(,]\\s*)(true|false|null)(?=\\s*[,)\\]\\n])",
-      "name": "constant.language.kosl"
+      "include": "#booleans"
     },
     {
-      "match": "(?<=[=(,]\\s*)-?[0-9]+(\\.[0-9]+)?(?=\\s*[,)\\]\\n])",
-      "name": "constant.numeric.kosl"
+      "include": "#null"
     },
     {
-      "begin": "\"",
-      "end": "\"",
-      "name": "string.quoted.double.kosl"
+      "include": "#numbers"
     },
     {
-      "match": "=",
-      "name": "keyword.operator.assignment.kosl"
+      "include": "#semver"
+    },
+    {
+      "include": "#keys"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#punctuation"
     }
-  ]
+  ],
+
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "match": "#.*$",
+          "name": "comment.line.number-sign.kosl"
+        },
+        {
+          "match": "//.*$",
+          "name": "comment.line.double-slash.kosl"
+        }
+      ]
+    },
+
+    "strings": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.kosl"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.kosl"
+            }
+          },
+          "name": "string.quoted.double.kosl",
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.kosl"
+            }
+          ]
+        }
+      ]
+    },
+
+    "booleans": {
+      "patterns": [
+        {
+          "match": "\\b(true|false)\\b",
+          "name": "constant.language.boolean.kosl"
+        }
+      ]
+    },
+
+    "null": {
+      "patterns": [
+        {
+          "match": "\\bnull\\b",
+          "name": "constant.language.null.kosl"
+        }
+      ]
+    },
+
+    "numbers": {
+      "patterns": [
+        {
+          "match": "\\b-?\\d+\\.\\d+\\b",
+          "name": "constant.numeric.float.kosl"
+        },
+        {
+          "match": "\\b-?\\d+\\b",
+          "name": "constant.numeric.integer.kosl"
+        }
+      ]
+    },
+
+    "semver": {
+      "patterns": [
+        {
+          "match": "\\b\\d+\\.\\d+\\.\\d+\\b",
+          "name": "constant.other.semver.kosl"
+        }
+      ]
+    },
+
+    "keys": {
+      "patterns": [
+        {
+          "match": "^\\s*([a-zA-Z_][a-zA-Z0-9_.-]*)\\s*(?==)",
+          "captures": {
+            "1": {
+              "name": "variable.other.property.kosl"
+            }
+          }
+        }
+      ]
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "match": "=",
+          "name": "keyword.operator.assignment.kosl"
+        }
+      ]
+    },
+
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "[\\[\\]\\(\\)\\{\\}]",
+          "name": "punctuation.section.kosl"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator.comma.kosl"
+        }
+      ]
+    }
+  }
 }
